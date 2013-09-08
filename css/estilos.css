@@ -1,3 +1,11 @@
 body {
     background: #16A085;
 }
+
+#contenedor{
+    background: gray;
+}
+
+#usuario{
+    text-align: right;
+}
