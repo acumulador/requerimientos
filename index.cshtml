@@ -1,4 +1,7 @@
 ﻿@{
+    var conexionDB = Database.Open("reque_cam");
+    var query = "SELECT * FROM tareas";
+    var datos = conexionDB.Query(query);
     
 }
 
@@ -11,24 +14,81 @@
         <title>Requerimientos</title>
   	    <link rel="stylesheet" href="css/estilos.css" />
   	    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  	    <script src="js/myCod.js"></script>
+  	    <!--<script src="js/myCod.js"></script>-->
     </head>
     <body>
 
-        <div id="contenedor">
-            <h1>Subdirección de Catastro</h1>
-            <h2>Equipo de Sistemas</h2>
+        <header>
+            <div id="titulos">
+                <h1>Subdirección de Catastro</h1>
+                <h2>Equipo de Sistemas</h2>
+            </div>
+            
             <div id="usuario">
                 <p>Jhon Orrego</p>
                 <p>02/04/2013</p>
             </div>
-            
+        </header>
+
+        <section id="contenedor">
             <nav>
                 <div id="agregar">Agregar Requerimientos</div>
             </nav>
+            <div id="basedatos">
+                <table id="reque_cam" border="1" style="table-layout:fixed">
+                    <thead>
+                        <tr>
+                            <th>Nro Req</th>
+                            <th>Fe. Ingreso</th>
+                            <th>Categoria</th>
+                            <th>Descripcion</th>
+                            <th>Prioridad</th>
+                            <th>Solicitante</th>
+                            <th>Asignado</th>
+                            <th>Estado</th>
+                            <th>Solucion</th>
+                            <th>Fe. Cierre</th>
+                            <th>Observaciones</th>
+                            <th>Tiempo Solucion</th>
+                            <th>-</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var fila in datos){
+                            <tr>
+                                <td>@fila.nroreq</td>
+                                <td>@Convert.ToDateTime(fila.fechai).ToShortDateString()</td>
+                                <td>@fila.categoria</td>
+                                <td>@fila.descripcion</td>
+                                <td>@fila.prioridad</td>
+                                <td>@fila.solicitante</td>
+                                <td>@fila.asignado</td>
+                                <td>@fila.estado</td>
+                                <td>@fila.solucion</td>
+                                <td>@Convert.ToDateTime(fila.fechaf).ToShortDateString()</td>
+                                <td>@fila.idnota</td>
+                                <td>@fila.tiemporeq</td>
+                                <td>
+                                    <div id="actualizar">AC</div>
+                                    <div id="reasignar">RE</div>
+                                    <div id="eliminar">DEL</div>
+                                    <div id="cerrar">CL</div>
+                                 </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <footer>
+            Todos los derechos reservados JJ
+        </footer>
+            
+            
 
 
-        </div>
+        
         
     </body>
 </html>
