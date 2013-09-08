@@ -21,7 +21,7 @@ header{
 }
 section{
     margin: auto;
-    height: 400px;
+    height: 100%;
     width: 90%;
     background-color: #ffd800;  
 }
