@@ -20,6 +20,24 @@ function prExportarPDF()
 
 function btnMenu()
 {
+    if (sw) {
+        $("#menu").animate({
+            marginTop: -50
+        });
+        sw = false;
+    }
+    else
+    { 
+        $("#menu").animate({
+            marginTop: -160
+        });
+        sw = true;
+    }
+    
+}
+/*
+function btnMenu()
+{
 	if(sw==true)
 	{
 		$("#menu").animate({
@@ -79,3 +97,4 @@ function btnMenu()
 		sw = true;
 	}
 }
+*/
