@@ -2,7 +2,6 @@
     var myId = "X";
     myId=Request["idAct"];
     string sqlAct = "SELECT * FROM tareas_req WHERE nreq = '" + myId + "'";
-
     string sqlCat = "SELECT * FROM categorias ORDER BY ds_categoria";
 
     string sqlTabla = "SELECT usuarios.documento, usuarios.nombre AS ASIGNADO, tareas_req.nreq AS NR, tareas_req.descripcion AS DESCRIPCION, tareas_req.prioridad AS PRIORIDAD, ";
@@ -29,7 +28,6 @@
      var datosTabla = conexionDB.Query (sqlTabla);
      var datosAct = conexionDB.Query (sqlAct);
 
-     //sql = "INSERT INTO tareas_req (descripcion, prioridad, solicitante, idcategoria, fechai, estado ) VALUES ('" + fr_Descripcion + "', '" + fr_Prioridad + "' , '" + fr_Solicitante + "' , '" + fr_Categoria + "', '" + myFecha.ToString() + "' , 'P')";
      //sql = "UPDATE tareas_req SET prioridad = '" + fr_Prioridad + "', idcategoria = '" + fr_Categoria + "', solicitante = '" + fr_Solicitante + "', descripcion = '" + fr_DesReq + "', observaciones = '" + fr_Obs + "' ";
      sql = "UPDATE tareas_req SET prioridad = '" + fr_Prioridad + "', idcategoria = '" + fr_Categoria + "', solicitante = '" + fr_Solicitante + "', descripcion = '" + fr_DesReq + "' WHERE nreq = '" + myId + "'";
 

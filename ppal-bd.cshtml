@@ -8,6 +8,7 @@
      sql += "usuarios ON tareas_req.us_asignado = usuarios.documento INNER JOIN ";
      sql += "categorias ON tareas_req.idcategoria = categorias.idcategoria LEFT OUTER JOIN ";
      sql += "notas ON tareas_req.idnota = notas.idnota ";
+     sql += "ORDER BY NR DESC";
 
     var datos = conexionDB.Query(sql);
 }
@@ -80,6 +81,7 @@
                     </thead>
                         <tbody>
                         @foreach(var fila in datos){
+                            DateTime fechacierre;
                             <tr>
                                 <td class="centered-cell">@fila.NR</td>
                                 <td class="centered-cell">@Convert.ToDateTime(fila.FECHAINGRESO).ToShortDateString()</td>
@@ -90,7 +92,16 @@
                                 <td class="centered-cell">@fila.ASIGNADO</td>
                                 <td class="centered-cell">@fila.ESTADO</td>
                                 <td class="centered-cell">@fila.SOLUCION</td>
-                                <td class="centered-cell">@Convert.ToDateTime(fila.FECHACIERRE).ToShortDateString()</td>
+                                @if(fila.FECHACIERRE != null)
+                                {
+                                    fechacierre = fila.FECHACIERRE;
+                                    <td class="centered-cell">@Convert.ToDateTime(fechacierre).ToShortDateString()</td>
+                                }
+                                else
+                                {
+                                    <td class="centered-cell">-</td>
+                                }
+                                
                                 <td class="centered-cell">@fila.NOTAS</td>
                                 <td class="centered-cell">@fila.TIEMPO</td>
                             </tr>

@@ -1,10 +1,11 @@
 ﻿@{
+    var myId = "X";
+    myId=Request["idCer"]; 
+    string sqlCer = "SELECT nreq FROM tareas_req WHERE nreq = '" + myId + "'";
     string sqlCat = "SELECT * FROM usuarios ORDER BY nombre";
 
     string sql = "";
     bool sw = false;
-    string fr_Usuario = Request["cbAsignar"];
-    string fr_nreq = Request["txtNroReq"];
     string fr_solucion = Request["solucion"];
     string myFecha = DateTime.Now.ToString("MM/dd/yyyy");
    
@@ -20,8 +21,9 @@
      sql += "notas ON tareas_req.idnota = notas.idnota ";
      sql += "WHERE (tareas_req.estado = 'P')";
      var datosTabla = conexionDB.Query (sql);
+     var datosCer = conexionDB.Query (sqlCer);
      
-     var sqlAsignar = "UPDATE tareas_req SET tiemporeq = DATEDIFF(day, fechai, '" + myFecha + "'), estado = 'F', fechaf = '" + myFecha + "', solucion = '" + fr_solucion + "' WHERE nreq = '" + fr_nreq + "'";
+     var sqlAsignar = "UPDATE tareas_req SET tiemporeq = DATEDIFF(day, fechai, '" + myFecha + "'), estado = 'F', fechaf = '" + myFecha + "', solucion = '" + fr_solucion + "' WHERE nreq = '" + myId + "'";
 
     if(IsPost)
     {
@@ -83,6 +85,7 @@
                             <th>Solicitante</th>
                             <th>Asignado</th>
                             <th>Estado</th>
+                            <th>-</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -95,23 +98,29 @@
                             <td style="text-align: left">@fila.SOLICITANTE</td>
                             <td style="text-align: left">@fila.ASIGNADO</td>
                             <td style="text-align: center">@fila.ESTADO</td>
+                            <td style="text-align: center"><a href="cerrar.cshtml?idCer=@fila.NR">Seleccionar</a></td>
                         </tr>
                         }
                         <tr>
-                            <td colspan="7">...</td>
+                            <td colspan="8">...</td>
                         </tr>
                     </tbody>
                 </table>
 
 
         <form method="post" action="" id="registro">
-            <label>Nro Requerimiento</label>
-            <input type="text" name="txtNroReq"><br/>
-            <label>Solución</label><br/>
-            <textarea name="solucion" cols="35" rows="6"></textarea><br/>
-            <div id="btnReg">
-                <input type="submit" value="Cerrar" name="btnCerrar">
-            </div>          
+            @foreach(var filaCer in datosCer)
+            {
+            <div>
+                <label>Nro Requerimiento</label>
+                <input type="text" name="txtNroReq" value="@filaCer.nreq" disabled><br/>
+                <label>Solución</label><br/>
+                <textarea name="solucion" cols="35" rows="6"></textarea><br/>
+                <div id="btnReg">
+                    <input type="submit" value="Cerrar" name="btnCerrar">
+                </div>          
+            </div>
+            }
         </form>
 
         <div>

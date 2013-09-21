@@ -1,5 +1,6 @@
 ﻿@{
     string sqlCat = "SELECT * FROM categorias ORDER BY ds_categoria";
+    string sqlUs = "SELECT * FROM usuarios ORDER BY documento";
 
     string sql = "";
     bool sw = false;
@@ -7,12 +8,14 @@
     string fr_Descripcion = Request["descripcion"];
     string fr_Prioridad = Request["cbPrioridad"];
     string fr_Categoria = Request["cbCategoria"];
+    string fr_Asignar = Request["cbAsignar"];
     string myFecha = DateTime.Now.ToString("MM/dd/yyyy");
     
      var conexionDB = Database.Open("reque_cam");
      var datosCombo = conexionDB.Query (sqlCat);
+     var datosComboUs = conexionDB.Query (sqlUs);
 
-     sql = "INSERT INTO tareas_req (descripcion, prioridad, solicitante, idcategoria, fechai, estado ) VALUES ('" + fr_Descripcion + "', '" + fr_Prioridad + "' , '" + fr_Solicitante + "' , '" + fr_Categoria + "', '" + myFecha + "' , 'P')";
+     sql = "INSERT INTO tareas_req (descripcion, prioridad, solicitante, idcategoria, fechai, estado, us_asignado ) VALUES ('" + fr_Descripcion + "', '" + fr_Prioridad + "' , '" + fr_Solicitante + "' , '" + fr_Categoria + "', '" + myFecha + "' , 'P', '" + fr_Asignar + "')";
 
     if(IsPost)
     {
@@ -76,6 +79,12 @@
                 <option value="A">Alta</option>
                 <option value="M">Media</option>
                 <option value="B">Baja</option>
+            </select>
+            <label>Asignar a</label>
+            <select size="1" name="cbAsignar" id="cbAsignar">
+                @foreach(var row in datosComboUs){
+                    <option value="@row.documento">@row.nombre</option>
+                }
             </select><br/> <br/>
             <div id="btnReg">
                 <input type="submit" value="Registrar" name="btnregistrar">
