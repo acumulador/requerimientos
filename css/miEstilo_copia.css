@@ -1,7 +1,7 @@
 html, body, ul
 {
 	margin: 0;
-	/*height: 95%;*/
+	height: 95%;
 }
 
 body
@@ -37,7 +37,7 @@ li a
 section
 {
 	/*background-color: gray;*/
-	/*width: 100%;*/
+	width: 100%;
 	height: 94%;
 }
 
@@ -47,18 +47,18 @@ table
     margin: auto;
 }
 
-#bd
-{
-	background-color: orange;
-}
-
 #botonExportar
 {
     width: 65%;
     margin: auto;
     text-align: right;
 }
-
+#btnReg{
+    margin: auto;
+    text-align: center;
+    width: 100%;
+}
+    
 #botonMenu
 {
 	background: url(../img/menu-view.png);
@@ -69,14 +69,6 @@ table
 	margin-left: 15px;
     margin-right: 20px;
 }
-
-#btnReg{
-    margin: auto;
-    text-align: center;
-    width: 100%;
-}
-    
-
 
 #espacio
 {
@@ -99,43 +91,22 @@ table
 #menu
 {
 	background-color: rgb(5, 5, 0);
-	width: 90%;
-	height: 45px;
-	padding: 5px;
-	list-style:none;
-    margin: auto;
-    display: inline-block;
-}
-/*Menu Original
-#menu
-{
-	background-color: rgb(5, 5, 0);
 	width: 45px;
+	/*width: 170px;*/
 	height: 100%;
 	padding: 5px;
 	float: left;
-	list-style:none;
-}*/
+	/*margin-top: 20px;*/
 
-#menu li a
-{
-	float: left;
-	background-color: rgb(150, 150, 150);
-	height: 35px;
-    width: 12%;
-	border-radius: 5px;
-	text-align: left;
-	padding: 5px;
-	font-family: 'Denk One', sans-serif;
-	font-size: 1em;
-	color: black;
-    margin-right: 5px;
+	list-style:none;
 }
-/*Menu original
+
 #menu li a
 {
 	display:block;
 	background-color: rgb(150, 150, 150);
+	/*width: 32px;*/
+	/*width: 150px;*/
 	height: 35px;
 	margin-top: 5px;
 	text-align: center;
@@ -145,20 +116,67 @@ table
 	font-family: 'Denk One', sans-serif;
 	font-size: 1em;
 	color: black;
+}
+
+#op1, #op2, #op3, #op4, #op5
+{
+	width: 42px;
+}
+/*
+.capas
+{
+	width: 96%;
+	min-height: 92%;
+	position: absolute;
+	box-shadow: 4px -4px 4px rgba(0,0,0,0.2);
+	margin-left: -102%;
+	-webkit-transition: all .6s ease-in-out;
+	-moz-transition: all .6s ease-in-out;
+	-o-transition: all .6s ease-in-out;
+	-ms-transition: all .6s ease-in-out;
+	transition: all .6s ease-in-out;
+}
+    
+.capas:target{
+	margin-left: 11%;
 }*/
 
 .olo
 {
-	/*display: none;*/
+	display: none;
 	float: right;
 	text-align: left;
 }
-    
+
+#nube
+{
+	background-color: red;
+}
+
+#musica
+{
+	background-color: blue;
+}
+
+#navega
+{
+	background-color: green;
+}
+
+#ubica
+{
+	background-color: yellow;
+}
+
+#bd
+{
+	background-color: orange;
+}
+
 #registro{
     margin: auto;
     width: 30%;
 }
-
 #titMenu
 {
 	background-color: rgba(190, 190, 190, 0.6);

@@ -7,9 +7,6 @@
     string fr_nreq = Request["txtNroReq"];
     string fr_solucion = Request["solucion"];
     string myFecha = DateTime.Now.ToString("MM/dd/yyyy");
-    string fr_fechaI = Request["FechaI"] ;
-    string fr_fechaf = DateTime.Now.ToString("MM/dd/yyyy");
-    
    
      var conexionDB = Database.Open("reque_cam");
      var datosCombo = conexionDB.Query (sqlCat);
@@ -24,19 +21,12 @@
      sql += "WHERE (tareas_req.estado = 'P')";
      var datosTabla = conexionDB.Query (sql);
      
-     var sqlAsignar = "UPDATE tareas_req SET estado = 'F', solucion = ' " + fr_solucion +"', fechai = '" + myFecha + "' WHERE nreq = '" + fr_nreq + "'";
+     var sqlAsignar = "UPDATE tareas_req SET tiemporeq = DATEDIFF(day, fechai, '" + myFecha + "'), estado = 'F', fechaf = '" + myFecha + "', solucion = '" + fr_solucion + "' WHERE nreq = '" + fr_nreq + "'";
 
     if(IsPost)
     {
         var datos = conexionDB.Query (sqlAsignar);
-        var sqlfinaldias = "SELECT tareas_req.fechai FROM tareas_req where nreq = '" + fr_nreq + "'";
-        var datos2 = conexionDB.Query (sqlfinaldias);
-        foreach(var fila in datosTabla){
-          @fila.
-        }
-    @TimeSpan fr_Fechacalculada = fr_fechaI + fr_fechaf;
         sw = true;
-
     }
 
     
@@ -119,17 +109,9 @@
             <input type="text" name="txtNroReq"><br/>
             <label>Solución</label><br/>
             <textarea name="solucion" cols="35" rows="6"></textarea><br/>
-           
-             
-            
             <div id="btnReg">
                 <input type="submit" value="Cerrar" name="btnCerrar">
-            </div>
-
-
-
-
-            
+            </div>          
         </form>
 
         <div>
@@ -137,7 +119,7 @@
             {
                 if(sw)
                 {
-                    @:Su requerimiento se cerro correctamente!! 
+                    Response.Redirect("cerrar.cshtml");
                 }
             }
         </div>
