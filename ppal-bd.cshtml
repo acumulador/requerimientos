@@ -1,0 +1,106 @@
+﻿@{
+    var conexionDB = Database.Open("reque_cam");
+    //var query = "SELECT * FROM tareas_req";
+     var sql = "SELECT usuarios.documento, usuarios.nombre AS ASIGNADO, tareas_req.nreq AS NR, tareas_req.descripcion AS DESCRIPCION, tareas_req.prioridad AS PRIORIDAD, ";
+     sql += "tareas_req.solicitante AS SOLICITANTE, tareas_req.solucion AS SOLUCION, tareas_req.fechaf AS FECHACIERRE, tareas_req.tiemporeq AS TIEMPO, ";
+     sql += "categorias.ds_categoria AS CATEGORIA, tareas_req.fechai AS FECHAINGRESO, tareas_req.estado AS ESTADO, notas.ds_nota AS NOTAS ";
+     sql += "FROM tareas_req LEFT OUTER JOIN ";
+     sql += "usuarios ON tareas_req.us_asignado = usuarios.documento INNER JOIN ";
+     sql += "categorias ON tareas_req.idcategoria = categorias.idcategoria LEFT OUTER JOIN ";
+     sql += "notas ON tareas_req.idnota = notas.idnota ";
+
+    var datos = conexionDB.Query(sql);
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="css/miEstilo.css">
+	    <link href='http://fonts.googleapis.com/css?family=Denk+One' rel='stylesheet' type='text/css'>
+	    <script src="js/jquery.js"></script>
+	    <script src="js/codigo.js"></script>
+        <!--Para la tabla-->
+        <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap-responsive.min.css"/>
+        <link rel="stylesheet" type="text/css" href="lib/jquery.dataTables/css/DT_bootstrap.css"/>
+        <link rel="stylesheet" href="css/datatables.responsive.css"/>
+        <script type="text/javascript" src="lib/lodash/lodash.min.js"></script>
+        <script type="text/javascript" src="lib/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="lib/jquery.dataTables/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="lib/jquery.dataTables/js/DT_bootstrap.js"></script>
+        <script type="text/javascript" src="js/datatables.responsive.js"></script>
+        <script type="text/javascript" src="js/dom-bootstrap.js"></script>
+        <!--Fin de add para tabla-->
+    </head>
+    <body>
+        <ul id="menu">
+		    <li id="espacio">...</li>
+		    <li id="op8"><a href="ppal-bd.cshtml" ><img src="img/requerimientos.png" alt="Requerimientos"><div class="olo" >Requerimientos</div></a></li>
+		    <li id="op9"><a href="exportar.cshtml" ><img src="img/exportar.png" alt="..."><div class="olo">Exportar</div></a></li>
+            <li id="espacio">...</li>
+		
+            <li id="op11"><a href="insertar.cshtml" ><img src="img/nuevo.png" alt="..."><div class="olo">Nuevo</div></a></li>
+            <li id="op10"><a href="asignar.cshtml" ><img src="img/asignar.png" alt="..."><div class="olo">Asignar</div></a></li>
+            <li id="op7"><a href="reasignar.cshtml" ><img src="img/reasignar.png" alt="..."><div class="olo">Re Asignar</div></a></li>
+		    <li id="op12"><a href="actualizar.cshtml" ><img src="img/actualizar.png" alt="..."><div class="olo">Actualizar</div></a></li>
+		    <li id="op6"><a href="cerrar.cshtml" ><img src="img/cerrar.png" alt="..."><div class="olo">Cerrar</div></a></li>
+	    </ul>
+
+    <div id="titMenu">
+	    <div id="botonMenu">
+	    </div>
+        PRINCIPAL
+    </div>
+
+    <section id="datos">
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                    <table id="example" class="table table-bordered table-striped"> 
+                        <thead>
+                        <tr>
+                            <th data-class="expand">Nro Req</th>
+                            <th class="centered-cell" data-hide="phone,tablet">Fe. Ingreso</th>
+                            <th>Categoria</th>
+                            <th data-hide="phone">Descripcion</th>
+                            <th class="centered-cell" data-hide="phone,tablet">Prioridad</th>
+                            <th class="centered-cell" data-hide="phone,tablet">Solicitante</th>
+                            <th class="centered-cell" data-hide="phone,tablet">Asignado</th>
+                            <th class="centered-cell" data-hide="phone,tablet">Estado</th>
+                            <th class="centered-cell" data-hide="phone,tablet">Solucion</th>
+                            <th class="centered-cell" data-hide="phone,tablet">Fe. Cierre</th>
+                            <th class="centered-cell" data-hide="phone,tablet">Observaciones</th>
+                            <th class="centered-cell" data-hide="phone,tablet">Tiempo Solucion</th>
+                        </tr>
+                    </thead>
+                        <tbody>
+                        @foreach(var fila in datos){
+                            <tr>
+                                <td class="centered-cell">@fila.NR</td>
+                                <td class="centered-cell">@Convert.ToDateTime(fila.FECHAINGRESO).ToShortDateString()</td>
+                                <td class="centered-cell">@fila.CATEGORIA</td>
+                                <td class="centered-cell">@fila.DESCRIPCION</td>
+                                <td class="centered-cell">@fila.PRIORIDAD</td>
+                                <td class="centered-cell">@fila.SOLICITANTE</td>
+                                <td class="centered-cell">@fila.ASIGNADO</td>
+                                <td class="centered-cell">@fila.ESTADO</td>
+                                <td class="centered-cell">@fila.SOLUCION</td>
+                                <td class="centered-cell">@Convert.ToDateTime(fila.FECHACIERRE).ToShortDateString()</td>
+                                <td class="centered-cell">@fila.NOTAS</td>
+                                <td class="centered-cell">@fila.TIEMPO</td>
+                            </tr>
+                        }
+                    </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+        
+    </body>
+</html>

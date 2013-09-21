@@ -1,0 +1,37 @@
+﻿@{
+    string myQuery = Session["query"].ToString();
+    Layout = null;
+    var db = Database.Open("reque_cam");
+    var datos = db.Query(myQuery);
+    var columns = datos.First().Columns;
+    Response.AddHeader("Content-disposition", "attachment; filename=ReporteRequerimientos.xls");
+    Response.ContentType = "application/octet-stream";
+}
+
+<table style="border: 1px solid #a59f9f;">
+    <tr>
+        <td colspan="2" style="text-align: center">
+            <!--<img src="../img/logo-catastro.jpg" alt="Logo Catastro">-->
+        </td>
+        <td colspan="6" style="font-size: 20px; font-weight: bold; text-align: center; height: 30px">
+            SUBDIRECCION DE CATASTRO<br>2013
+        </td>
+        <td colspan="4" style="text-align: center">
+            <!--<img src="img/logo-medellin.png" alt="Logo Medellin">-->
+        </td>
+    </tr>
+
+
+    <tr style="font-weight: bold">
+        @foreach(var column in columns){
+            <td style="border: 1px solid #a59f9f; text-align: center">@column</td>
+        }
+    </tr>
+    @foreach(var row in datos){
+        <tr>
+            @foreach (var column in columns){
+                <td style="border: 1px solid #a59f9f;">@row[column]</td>
+            }
+        </tr>
+    }
+</table>
